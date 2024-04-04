@@ -1,0 +1,14 @@
+#goal definition
+std_msgs/Header header
+bool modality # 1: pick-up target_object, 0: place picked-up object
+PickUpObject target_object
+PickUpObject[] objects
+PickUpObstacle[] obstacles
+---
+#result definition
+std_msgs/Header header
+bool is_succeeded
+---
+#feedback
+std_msgs/Header header
+string status

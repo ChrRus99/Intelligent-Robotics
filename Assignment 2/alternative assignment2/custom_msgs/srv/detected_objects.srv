@@ -1,0 +1,7 @@
+# detected_objects.srv definition
+std_msgs/Header header
+bool is_ready
+---
+std_msgs/Header header
+custom_msgs/PickUpObject[] objects
+custom_msgs/PickUpObstacle[] obstacles

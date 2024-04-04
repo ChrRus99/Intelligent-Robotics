@@ -1,0 +1,38 @@
+<!-- tiago_navigation.launch -->
+<launch>
+    <!-- START SIMULATION LAUNCHES -->
+    <!-- Start the simulation and MoveIt -->
+    <include file="$(find tiago_iaslab_simulation)/launch/start_simulation.launch">
+        <arg name="world_name" value="ias_lab_room_full_tables"/>
+    </include>
+
+    <!-- AprilTag -->
+    <include file="$(find tiago_iaslab_simulation)/launch/apriltag.launch"/>
+
+    <!-- Navigation stack -->
+    <include file="$(find tiago_iaslab_simulation)/launch/navigation.launch"/>
+
+
+    <!-- START NODES -->   
+    <!-- Human Service node -->
+    <node name ="human_node" pkg="tiago_iaslab_simulation" type="human_node" launch-prefix="bash -c 'sleep 10; $0 $@' " output="screen"/>
+    
+    <!-- Launch the link attacher -->
+    <node name="link_attacher" pkg="assignment2" type="gazebo_ros_link_attacher" launch-prefix="bash -c 'sleep 10; $0 $@' " output="screen"/>
+    
+    <!-- Navigation Action Server node -->
+    <node name="node_navigation_action_server" pkg="assignment2" type="main_node_navigation_action_server" launch-prefix="bash -c 'sleep 10; $0 $@' " output="screen"/>
+
+    <!-- Node B Service Server node -->
+    <node name="node_B_service_server" pkg="assignment2" type="main_node_B_service_server" launch-prefix="bash -c 'sleep 10; $0 $@' " output="screen"/>
+
+    <!-- Node C Action Server node -->
+    <node name="node_C_action_server" pkg="assignment2" type="main_node_C_action_server" launch-prefix="bash -c 'sleep 10; $0 $@' " output="screen"/>
+
+    <!-- Node A node -->
+    <node name="node_A" pkg="assignment2" type="main_node_A" output="screen" use_sim_time="true" launch-prefix='gnome-terminal -- bash -c "echo Preparing the simulation environment...; echo Activating the other nodes...; echo Waiting for the robot arm to retract...; sleep 30; $0 $@"'>
+        <param name="~extra_points_flag" type="bool" value="true"/>
+    </node>
+
+
+</launch>
