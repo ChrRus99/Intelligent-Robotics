@@ -1,0 +1,25 @@
+<!-- tiago_navigation.launch -->
+<launch>
+	<!-- Launch Gazebo with Tiago robot -->
+    <include file="$(find tiago_iaslab_simulation)/launch/start_simulation.launch">
+        <arg name="world_name" value="robotics_library"/>
+    </include>
+
+    <!-- Launch Tiago robot navigation -->
+    <include file="$(find tiago_iaslab_simulation)/launch/navigation.launch">
+		<launch-prefix>gnome-terminal --tab --command</launch-prefix>
+    </include>
+
+
+    <!-- Launch the navigation server -->
+    <node name="navigation_server" pkg="assignment1" type="main_action_server_node" output="screen">
+    </node> 
+
+    <!-- Launch the navigation client -->
+    <node name="navigation_client" pkg="assignment1" type="main_action_client_node" output="screen">
+        <!-- You can set parameters here, for example, x, y, and theta values -->
+        <param name="~x" type="double" value="20.0"/>
+        <param name="~y" type="double" value="-300.0"/>
+        <param name="~theta" type="double" value="1.57"/>
+    </node>
+</launch>
