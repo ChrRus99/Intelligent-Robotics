@@ -1,0 +1,3 @@
+# PickUpObstacle definition
+int32 obstacle_id
+geometry_msgs/Pose obstacle_position

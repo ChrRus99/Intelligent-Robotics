@@ -1,0 +1,11 @@
+#goal definition
+std_msgs/Header header
+geometry_msgs/Pose target_pose
+---
+#result definition
+std_msgs/Header header
+geometry_msgs/Pose[] obstacle_positions
+---
+#feedback
+std_msgs/Header header
+string status
