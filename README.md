@@ -1,4 +1,4 @@
-# Intelligent-Robotics
+# Intelligent Robotics Assignments
 Final projects of Intelligent Robotics - 2024 - unipd
 
 * Exercise 4
