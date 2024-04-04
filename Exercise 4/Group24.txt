@@ -1,0 +1,48 @@
+GROUP NUMBER 24
+GROUP COMPONENTS: Osti Simone, Russo Christian Francesco, Spinato Matteo
+
+OUR APPROACH:
+At each laser scan:
+	- Extract laser parameters: angle_min, angle_max, angle_increment, range_min, range_max
+	- Extract the laser scan
+	- Compute the laser scan vector size as: ((angle_max - angle_min) / angle_increment) + 1 ---> AGGIUNGI +1 NEL PDF
+
+	- DETECT PEOPLE'S LEGS POLAR_COORDS POINTS:
+		- Process the current laser scan data (vector) to compute the position of each leg
+			- If range=+inf => at this angle the scanner does not detect any leg
+				- Store the last leg ('s points) detected (if one was detected)
+			- Else (if range is in [range_min, range_max] => it has found a leg ('s point))
+				- Store the range value at this angle for the current leg detected
+		- ((If not done yet) store the last leg detected)
+
+	
+	- FOR EACH LEG DETECTED, COMPUTE THE CENTRAL CARTESIAN_COORDS POINT OF THE LEG
+		- Compute the central polar_coords point
+		- Convert the central polar_coords in cartesian_coords, and store it
+
+	- FOR EACH PERSON, COMPUTE THE MIDDLE CARTESIAN_COORDS POINT BETWEEN ITS COUPLE OF LEGS
+		- Check whether a valid number of legs was detected (even number of legs)
+		
+		- HANDLE CASE OF PERSON ON x AXIS: 
+			- first_idx = 0, last_idx = vec_size - 1
+			- Given the 1st leg in the vector, if the nearest leg is the last one in the vector (instead of the 2nd one 
+		 	  in the vector) in the legs_central_points vector, then adapt indexes (circular vector): first_idx = 1, last_idx = vec_size
+		- Couple a pair of legs for each person:
+			- Compute the position of a person as the middle point between its 2 legs	
+			- HANDLE CASE PERSON ON x AXIS
+			- Store and print the position of the detected person
+
+
+QUESTIONS ANSWERS:
+	- Can you say in advance the size of the vector of data coming from the laser scan?
+	  Yes: (angle_max - angle_min) / angle_increment + 1
+	  720
+	- Do you know how to convert polar coordinates [angle, distance] into 2D metric coordinates [X, Y]?
+	  x = r * cos(theta)
+	  y = r * sin(theta)
+	  where: r=distance, theta=angle
+	- Convert each readout of the laser range finder into [x, y] coordinates in the reference frame of the robot.
+	  Check middle steps in the code by uncommenting ROS_INFOs
+	- Compute the position of each person as the point in the middle of the two legs.
+	  This is the only thing our program prints
+
